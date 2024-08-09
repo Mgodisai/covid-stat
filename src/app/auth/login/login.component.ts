@@ -1,6 +1,7 @@
-import { Component, DestroyRef } from '@angular/core';
+import { Component, DestroyRef, signal } from '@angular/core';
 import {
    FormBuilder,
+   FormControl,
    FormGroup,
    FormsModule,
    ReactiveFormsModule,
@@ -9,6 +10,8 @@ import {
 import { AuthService } from '../auth.service';
 import { NgClass } from '@angular/common';
 import { tap } from 'rxjs/internal/operators/tap';
+import { finalize } from 'rxjs/internal/operators/finalize';
+import { catchError } from 'rxjs';
 
 @Component({
    selector: 'app-login',
@@ -18,35 +21,51 @@ import { tap } from 'rxjs/internal/operators/tap';
    styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-   loginForm: FormGroup;
-   submitted = false;
+   loginData = new FormGroup({
+      username: new FormControl<string>('', Validators.required),
+      password: new FormControl<string>('', Validators.required),
+   });
+
+   isLoading = signal<boolean>(false);
+   errorMessage = signal<string | null>(null);
 
    constructor(
       private readonly authService: AuthService,
       private readonly formBuilder: FormBuilder
-   ) {
-      this.loginForm = this.formBuilder.group({
-         username: ['', Validators.required],
-         password: ['', Validators.required],
-      });
-   }
-
-   get formControls() {
-      return this.loginForm.controls;
-   }
+   ) {}
 
    login() {
-      this.submitted = true;
-      if (this.loginForm.invalid) {
+      this.errorMessage.set(null);
+      this.isLoading.set(true);
+
+      if (this.loginData.invalid) {
          return;
       }
-      const username = this.loginForm.value.username;
-      const password = this.loginForm.value.password;
+      const username = this.loginData.value.username;
+      const password = this.loginData.value.password;
+
       if (username && password) {
          this.authService
             .login(username, password)
-            .pipe(tap(() => console.log('User logged in: ', username)))
+            .pipe(
+               tap((result: boolean) => {
+                  if (result) {
+                     console.log('Login successful');
+                  } else {
+                     this.errorMessage.set('Invalid username or password');
+                  }
+               }),
+
+               catchError((error) => {
+                  this.errorMessage.set('An error occurred. Please try again.');
+                  throw error;
+               }),
+               finalize(() => this.isLoading.set(false))
+            )
             .subscribe();
       }
    }
+}
+function of(arg0: null): any {
+   throw new Error('Function not implemented.');
 }

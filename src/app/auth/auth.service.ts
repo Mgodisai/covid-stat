@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/internal/operators/tap';
 import { of } from 'rxjs/internal/observable/of';
+import { delay } from 'rxjs/internal/operators/delay';
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 @Injectable({
    providedIn: 'root',
@@ -18,11 +20,7 @@ export class AuthService {
    constructor(
       private readonly userRepository: UserRepository,
       private readonly router: Router
-   ) {
-      effect(() => {
-         console.log('current user changed:', this._currentUser());
-      });
-   }
+   ) {}
 
    isAuthenticated = computed(() => this._currentUser() !== undefined);
 
@@ -35,6 +33,8 @@ export class AuthService {
       if (validatedUser) {
          return of(true).pipe(
             tap(() => {
+               delay(2000);
+
                this._currentUser.set(validatedUser);
                this.storeCurrentUser(validatedUser);
                console.log('User logged in');
@@ -73,10 +73,6 @@ export class AuthService {
    }
 
    private clearStoredCurrentUser() {
-      const x = localStorage.getItem(this.CURRENT_USER_KEY);
-      console.log('removing: ', x);
       localStorage.removeItem(this.CURRENT_USER_KEY);
-      const y = localStorage.getItem(this.CURRENT_USER_KEY);
-      console.log('removed: ', y);
    }
 }

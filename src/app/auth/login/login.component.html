@@ -2,7 +2,12 @@
    <div class="row justify-content-center">
       <div class="col-md-6">
          <h2 class="text-center mb-4">Login</h2>
-         <form [formGroup]="loginForm" (ngSubmit)="login()">
+         @if(errorMessage()) {
+         <div class="alert alert-danger">
+            {{ errorMessage() }}
+         </div>
+         }
+         <form [formGroup]="loginData" (ngSubmit)="login()" novalidate>
             <div class="form-group">
                <label for="username">Username</label>
                <input
@@ -11,12 +16,17 @@
                   class="form-control"
                   formControlName="username"
                   [ngClass]="{
-                     'is-invalid': submitted && formControls['username'].errors
+                     'is-invalid':
+                        loginData.controls.username.invalid &&
+                        (loginData.controls.username.touched ||
+                           loginData.controls.username.dirty)
                   }"
                />
-               @if(submitted && formControls['username'].errors) {
+               @if(loginData.controls.username.invalid &&
+               (loginData.controls.username.touched ||
+               loginData.controls.username.dirty)) {
                <div class="invalid-feedback">
-                  @if (formControls['username'].errors['required']) {
+                  @if (loginData.controls.username.errors?.['required']) {
                   <div>Username is required</div>
                   }
                </div>
@@ -31,20 +41,35 @@
                   class="form-control"
                   formControlName="password"
                   [ngClass]="{
-                     'is-invalid': submitted && formControls['password'].errors
+                     'is-invalid':
+                        loginData.controls.username.invalid &&
+                        (loginData.controls.username.touched ||
+                           loginData.controls.username.dirty)
                   }"
                />
-               @if(submitted && formControls['password'].errors) {
+               @if(loginData.controls.username.invalid &&
+               (loginData.controls.username.touched ||
+               loginData.controls.username.dirty)) {
                <div class="invalid-feedback">
-                  @if(formControls['password'].errors['required']) {
+                  @if(loginData.controls.password.errors?.['required']) {
                   <div>Password is required</div>
                   }
                </div>
                }
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block mt-4">
-               Login
+            <button
+               type="submit"
+               [disabled]="loginData.invalid || isLoading()"
+               class="btn btn-primary btn-block mt-4"
+            >
+               @if(isLoading()) {
+               <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+               ></span>
+               } @else { Login }
             </button>
          </form>
       </div>

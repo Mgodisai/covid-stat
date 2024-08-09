@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RegService } from './reg.service';
 import { of } from 'rxjs/internal/observable/of';
 import { tap } from 'rxjs/internal/operators/tap';
@@ -19,6 +19,7 @@ import { PasswordComplexityDirective } from '../../shared/validators/password-co
    ],
    templateUrl: './registration.component.html',
    styleUrl: './registration.component.scss',
+   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationComponent {
    public readonly email = signal('');
@@ -27,7 +28,6 @@ export class RegistrationComponent {
    public readonly confirmPassword = signal('');
 
    errorMessage = signal<string | null>(null);
-   successMessage = signal<string | null>(null);
 
    constructor(
       private readonly regService: RegService,
@@ -35,7 +35,6 @@ export class RegistrationComponent {
    ) {}
 
    public register(form: NgForm) {
-      console.log('register called');
       if (form.invalid) {
          this.errorMessage.set('Please fill in all required fields correctly.');
          return;
@@ -45,19 +44,13 @@ export class RegistrationComponent {
          this.errorMessage.set('Passwords do not match');
          return;
       }
-      const registrationResult = this.regService
+      this.regService
          .register(this.username(), this.password(), this.email())
          .pipe(
             tap((result: boolean) => {
                if (result) {
-                  this.successMessage.set('Registration successful');
-                  console.log(
-                     'Registration successful for user: ',
-                     this.username()
-                  );
                   this.router.navigate(['login']);
                } else {
-                  console.log('Registration failed');
                   this.router.navigate(['registration']);
                }
             }),

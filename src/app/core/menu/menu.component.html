@@ -1,0 +1,25 @@
+<div class="navigation">
+   <ul
+      ngbNav
+      #nav="ngbNav"
+      [(activeId)]="activeId"
+      [animation]="true"
+      class="nav nav-pills"
+   >
+      @for(item of menuItems; track item.id) { @if(shouldDisplayMenuItem(item))
+      {
+      <li [ngbNavItem]="item.id">
+         <button
+            ngbNavLink
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="{{ item.url }}"
+            [disabled]="!shouldDisplayMenuItem(item)"
+         >
+            {{ item.name }}
+         </button>
+      </li>
+      } }
+   </ul>
+   <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

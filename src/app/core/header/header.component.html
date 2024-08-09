@@ -1,0 +1,28 @@
+<header>
+   <img src="assets/header-logo.png" alt="COVID-19 Logo" />
+   <div class="header-text">
+      <h1>COVID-19 Statistics</h1>
+      <p>Stay informed with the latest COVID-19 statistics</p>
+   </div>
+   <div class="auth-section">
+      @if (isLoggedIn()) {
+      <div class="user-info">
+         <span>Welcome, {{ userData().username }}</span>
+         <div>{{ userData().email }}</div>
+      </div>
+      <button (click)="logout()" class="btn btn-outline-light btn-sm">
+         Logout
+      </button>
+      } @else {
+      <div class="user-info">
+         <span>Welcome, Guest</span>
+      </div>
+      <div class="auth-buttons">
+         <button (click)="login()" class="btn btn-outline-light btn-sm">
+            Login
+         </button>
+         <button (click)="register()" class="btn btn-register">Sign Up</button>
+      </div>
+      }
+   </div>
+</header>

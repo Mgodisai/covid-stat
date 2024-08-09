@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/scss/bootstrap";
+
+body {
+   font-family: Roboto, "Helvetica Neue", sans-serif;
+   background-color: #f8f9fa;
+   color: #112534;
+   height: 100%;
+}
+
+a {
+   color: #0056b3;
+   text-decoration: none;
+}
+
+a:hover {
+   color: #0056b3;
+   text-decoration: underline;
+}
+
+.container {
+   margin: 30px auto;
+   padding: 30px;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+   background-color: white;
+   border-radius: 8px;
+}
+
+.btn-custom {
+   background-color: #112534;
+   color: white;
+}
+
+.btn-custom:hover {
+   background-color: #0056b3;
+}
+
+input.form-control {
+   border-radius: 0.25rem;
+   padding: 0.5rem;
+   border: 1px solid #ced4da;
+}
+
+input.form-control:focus {
+   border-color: #007bff;
+   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

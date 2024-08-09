@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/internal/operators/tap';
 import { of } from 'rxjs/internal/observable/of';
 import { delay } from 'rxjs/internal/operators/delay';
-import { throwError } from 'rxjs/internal/observable/throwError';
 
 @Injectable({
    providedIn: 'root',
@@ -32,9 +31,8 @@ export class AuthService {
 
       if (validatedUser) {
          return of(true).pipe(
+            delay(2000),
             tap(() => {
-               delay(2000);
-
                this._currentUser.set(validatedUser);
                this.storeCurrentUser(validatedUser);
                console.log('User logged in');
@@ -45,7 +43,12 @@ export class AuthService {
          );
       } else {
          console.log('Invalid username or password');
-         return of(false);
+         return of(false).pipe(
+            delay(2000),
+            tap(() => {
+               console.log('Invalid username or password');
+            })
+         );
       }
    }
 

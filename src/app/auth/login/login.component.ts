@@ -49,9 +49,7 @@ export class LoginComponent {
             .login(username, password)
             .pipe(
                tap((result: boolean) => {
-                  if (result) {
-                     console.log('Login successful');
-                  } else {
+                  if (!result) {
                      this.errorMessage.set('Invalid username or password');
                   }
                }),

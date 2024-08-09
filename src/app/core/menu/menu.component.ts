@@ -17,6 +17,7 @@ export class MenuComponent {
       { id: 2, name: 'Stats', url: '/stats', requiresAuth: true },
       { id: 3, name: 'Cases', url: 'stats/cases', requiresAuth: true },
       { id: 4, name: 'Vaccines', url: 'stats/vaccines', requiresAuth: true },
+      { id: 5, name: 'Unknown', url: '/sadf', requiresAuth: false },
    ];
 
    activeId = signal(this.menuItems[0].id);

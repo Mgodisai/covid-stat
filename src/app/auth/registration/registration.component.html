@@ -77,18 +77,26 @@
                   required
                   minlength="6"
                   #passwordModel="ngModel"
+                  passwordComplexity
                   [ngClass]="{
                      'is-invalid':
                         passwordModel.invalid && passwordModel.touched
                   }"
                />
-               @if(passwordModel.invalid && passwordModel.touched) {
+               @if(passwordModel.invalid && (passwordModel.touched ||
+               passwordModel.dirty)) {
                <div class="invalid-feedback">
                   @if(passwordModel.errors?.['required']) {
                   <div>Password is required.</div>
                   } @if(passwordModel.errors?.['minlength']) {
                   <div>Password must be at least 6 characters long.</div>
                   }
+               </div>
+               } @if(passwordModel.errors?.['passwordComplexity'] &&
+               passwordModel.touched) {
+               <div class="invalid-feedback">
+                  Password must contain at least one uppercase letter, one
+                  lowercase letter, one number, and one special character.
                </div>
                }
             </div>

@@ -6,11 +6,17 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PasswordComplexityDirective } from '../../shared/validators/password-complexity.directive';
 
 @Component({
    selector: 'app-registration',
    standalone: true,
-   imports: [RouterLink, FormsModule, CommonModule],
+   imports: [
+      RouterLink,
+      FormsModule,
+      CommonModule,
+      PasswordComplexityDirective,
+   ],
    templateUrl: './registration.component.html',
    styleUrl: './registration.component.scss',
 })

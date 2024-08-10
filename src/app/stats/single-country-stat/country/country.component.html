@@ -1,0 +1,52 @@
+<h4>Country Information</h4>
+<div ngbAccordion>
+   <div ngbAccordionItem [collapsed]="true">
+      <h2 ngbAccordionHeader>
+         <button ngbAccordionButton>General Information</button>
+      </h2>
+      <div ngbAccordionCollapse>
+         <div ngbAccordionBody>
+            <p><strong>Country:</strong> {{ countryData?.country }}</p>
+            <p><strong>Continent:</strong> {{ countryData?.continent }}</p>
+            <p>
+               <strong>Abbreviation:</strong> {{ countryData?.abbreviation }}
+            </p>
+            <p><strong>ISO Code:</strong> {{ countryData?.iso }}</p>
+            <p>
+               <strong>Capital City:</strong> {{ countryData?.capital_city }}
+            </p>
+         </div>
+      </div>
+   </div>
+   <div ngbAccordionItem>
+      <h2 ngbAccordionHeader>
+         <button ngbAccordionButton>Demographic Information</button>
+      </h2>
+      <div ngbAccordionCollapse>
+         <div ngbAccordionBody>
+            <p><strong>Population:</strong> {{ countryData?.population }}</p>
+            <p><strong>Area (sq km):</strong> {{ countryData?.sq_km_area }}</p>
+            <p>
+               <strong>Life Expectancy:</strong>
+               {{ countryData?.life_expectancy }}
+            </p>
+            <p>
+               <strong>Elevation (meters):</strong>
+               {{ countryData?.elevation_in_meters }}
+            </p>
+         </div>
+      </div>
+   </div>
+   <div ngbAccordionItem>
+      <h2 ngbAccordionHeader>
+         <button ngbAccordionButton>Location Information</button>
+      </h2>
+      <div ngbAccordionCollapse>
+         <div ngbAccordionBody>
+            <p><strong>Latitude:</strong> {{ countryData?.lat }}</p>
+            <p><strong>Longitude:</strong> {{ countryData?.long }}</p>
+            <div id="map" style="height: 300px"></div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,142 +1,137 @@
-<div class="container mt-5">
-   <div class="row justify-content-center">
-      <div class="col-md-6">
-         <h2 class="text-center mb-4">Register</h2>
+<div class="row justify-content-center">
+   <div class="col-md-6">
+      <h2 class="text-center mb-4">Register</h2>
 
-         @if(errorMessage()) {
-         <div class="alert alert-danger">
-            {{ errorMessage() }}
-         </div>
-         }
-         <form
-            #registrationForm="ngForm"
-            novalidate
-            (ngSubmit)="register(registrationForm)"
-         >
-            <div class="form-group">
-               <label for="username">Username</label>
-               <input
-                  [(ngModel)]="username"
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  name="username"
-                  placeholder="Enter username"
-                  required
-                  #usernameModel="ngModel"
-                  [ngClass]="{
-                     'is-invalid':
-                        usernameModel.invalid && usernameModel.touched
-                  }"
-               />
-               @if(usernameModel.invalid && usernameModel.touched) {
-               <div class="invalid-feedback">Username is required.</div>
-               }
-            </div>
-
-            <div class="form-group">
-               <label for="email">Email</label>
-               <input
-                  [(ngModel)]="email"
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  name="email"
-                  email
-                  placeholder="Enter email"
-                  required
-                  #emailModel="ngModel"
-                  [ngClass]="{
-                     'is-invalid': emailModel.invalid && emailModel.touched
-                  }"
-               />
-               @if(emailModel.invalid && emailModel.touched) {
-               <div class="invalid-feedback">
-                  @if(emailModel.errors?.['required']) {
-                  <div>Email is required.</div>
-                  } @if(emailModel.errors?.['email']) {
-                  <div>Please enter a valid email address.</div>
-                  }
-               </div>
-               }
-            </div>
-
-            <div class="form-group">
-               <label for="password">Password</label>
-               <input
-                  [(ngModel)]="password"
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  name="password"
-                  placeholder="Enter password"
-                  required
-                  minlength="6"
-                  #passwordModel="ngModel"
-                  passwordComplexity
-                  [ngClass]="{
-                     'is-invalid':
-                        passwordModel.invalid && passwordModel.touched
-                  }"
-               />
-               @if(passwordModel.invalid && (passwordModel.touched ||
-               passwordModel.dirty)) {
-               <div class="invalid-feedback">
-                  @if(passwordModel.errors?.['required']) {
-                  <div>Password is required.</div>
-                  } @if(passwordModel.errors?.['minlength']) {
-                  <div>Password must be at least 6 characters long.</div>
-                  }
-               </div>
-               } @if(passwordModel.errors?.['passwordComplexity'] &&
-               passwordModel.touched) {
-               <div class="invalid-feedback">
-                  Password must contain at least one uppercase letter, one
-                  lowercase letter, one number, and one special character.
-               </div>
-               }
-            </div>
-
-            <div class="form-group">
-               <label for="confirm-password">Confirm Password</label>
-               <input
-                  [(ngModel)]="confirmPassword"
-                  type="password"
-                  class="form-control"
-                  id="confirm-password"
-                  name="confirmPassword"
-                  placeholder="Re-enter password"
-                  required
-                  #confirmPasswordModel="ngModel"
-                  [ngClass]="{
-                     'is-invalid':
-                        confirmPasswordModel.invalid &&
-                        confirmPasswordModel.touched
-                  }"
-               />
-               @if(confirmPasswordModel.invalid && confirmPasswordModel.touched)
-               {
-               <div class="invalid-feedback">Confirm Password is required.</div>
-               }
-            </div>
-            <div class="form-group d-flex justify-content-between">
-               <button
-                  type="button"
-                  [routerLink]="['']"
-                  routerLinkActive="router-link-active"
-                  class="btn btn-secondary btn-block mt-4"
-               >
-                  Back
-               </button>
-               <button
-                  type="submit"
-                  class="btn btn-primary btn-block mt-4"
-                  [disabled]="registrationForm.invalid"
-               >
-                  Register
-               </button>
-            </div>
-         </form>
+      @if(errorMessage()) {
+      <div class="alert alert-danger">
+         {{ errorMessage() }}
       </div>
+      }
+      <form
+         #registrationForm="ngForm"
+         novalidate
+         (ngSubmit)="register(registrationForm)"
+      >
+         <div class="form-group">
+            <label for="username">Username</label>
+            <input
+               [(ngModel)]="username"
+               type="text"
+               class="form-control"
+               id="username"
+               name="username"
+               placeholder="Enter username"
+               required
+               #usernameModel="ngModel"
+               [ngClass]="{
+                  'is-invalid': usernameModel.invalid && usernameModel.touched
+               }"
+            />
+            @if(usernameModel.invalid && usernameModel.touched) {
+            <div class="invalid-feedback">Username is required.</div>
+            }
+         </div>
+
+         <div class="form-group">
+            <label for="email">Email</label>
+            <input
+               [(ngModel)]="email"
+               type="email"
+               class="form-control"
+               id="email"
+               name="email"
+               email
+               placeholder="Enter email"
+               required
+               #emailModel="ngModel"
+               [ngClass]="{
+                  'is-invalid': emailModel.invalid && emailModel.touched
+               }"
+            />
+            @if(emailModel.invalid && emailModel.touched) {
+            <div class="invalid-feedback">
+               @if(emailModel.errors?.['required']) {
+               <div>Email is required.</div>
+               } @if(emailModel.errors?.['email']) {
+               <div>Please enter a valid email address.</div>
+               }
+            </div>
+            }
+         </div>
+
+         <div class="form-group">
+            <label for="password">Password</label>
+            <input
+               [(ngModel)]="password"
+               type="password"
+               class="form-control"
+               id="password"
+               name="password"
+               placeholder="Enter password"
+               required
+               minlength="6"
+               #passwordModel="ngModel"
+               passwordComplexity
+               [ngClass]="{
+                  'is-invalid': passwordModel.invalid && passwordModel.touched
+               }"
+            />
+            @if(passwordModel.invalid && (passwordModel.touched ||
+            passwordModel.dirty)) {
+            <div class="invalid-feedback">
+               @if(passwordModel.errors?.['required']) {
+               <div>Password is required.</div>
+               } @if(passwordModel.errors?.['minlength']) {
+               <div>Password must be at least 6 characters long.</div>
+               }
+            </div>
+            } @if(passwordModel.errors?.['passwordComplexity'] &&
+            passwordModel.touched) {
+            <div class="invalid-feedback">
+               Password must contain at least one uppercase letter, one
+               lowercase letter, one number, and one special character.
+            </div>
+            }
+         </div>
+
+         <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input
+               [(ngModel)]="confirmPassword"
+               type="password"
+               class="form-control"
+               id="confirm-password"
+               name="confirmPassword"
+               placeholder="Re-enter password"
+               required
+               #confirmPasswordModel="ngModel"
+               [ngClass]="{
+                  'is-invalid':
+                     confirmPasswordModel.invalid &&
+                     confirmPasswordModel.touched
+               }"
+            />
+            @if(confirmPasswordModel.invalid && confirmPasswordModel.touched) {
+            <div class="invalid-feedback">Confirm Password is required.</div>
+            }
+         </div>
+         <div class="form-group d-flex justify-content-between">
+            <button
+               type="button"
+               [routerLink]="['']"
+               routerLinkActive="router-link-active"
+               class="btn btn-secondary btn-block mt-4"
+            >
+               Back
+            </button>
+            <button
+               type="submit"
+               class="btn btn-primary btn-block mt-4"
+               [disabled]="registrationForm.invalid"
+            >
+               Register
+            </button>
+         </div>
+      </form>
    </div>
 </div>

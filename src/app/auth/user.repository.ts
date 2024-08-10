@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StoredUser } from './models/storedUser.model';
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
 import { User } from './models/user.model';
 
 @Injectable({

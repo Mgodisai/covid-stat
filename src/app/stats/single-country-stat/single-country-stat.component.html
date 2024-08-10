@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+   <div class="col-md-8">
+      <h2 class="text-center mb-4">COVID-19 Statistics</h2>
+
+      <div class="form-group">
+         <label for="countrySelect">Select a Country:</label>
+         <select
+            id="countrySelect"
+            class="form-control"
+            [value]="selectedCountry()"
+            (change)="onCountrySelect($event)"
+         >
+            <option value="">Select a Country</option>
+            @for(country of countries; track country.name) {
+            <option [value]="country.name">
+               {{ country.name }}
+            </option>
+            }
+         </select>
+      </div>
+
+      @if(errorMessage()) {
+      <div class="alert alert-danger mt-3">
+         {{ errorMessage() }}
+      </div>
+      } @if(vaccinationData()) {
+      <div class="mt-3">
+         <h4>
+            {{ vaccinationData()?.country_data?.country }} - Vaccination Data
+         </h4>
+         <p>
+            <strong>Administered:</strong>
+            {{ vaccinationData()?.administered | number }}
+         </p>
+         <p>
+            <strong>People Vaccinated:</strong>
+            {{ vaccinationData()?.people_vaccinated | number }}
+         </p>
+         <p>
+            <strong>Updated:</strong>
+            {{ vaccinationData()?.updated | date : "short" }}
+         </p>
+      </div>
+      } @if(covidStatistics()) {
+      <div class="mt-3">
+         <h4>{{ covidStatistics()?.country_data?.country }} - COVID-19 Data</h4>
+         <p>
+            <strong>Confirmed Cases:</strong>
+            {{ covidStatistics()?.confirmed | number }}
+         </p>
+         <p>
+            <strong>Recovered Cases:</strong>
+            {{ covidStatistics()?.recovered | number }}
+         </p>
+         <p>
+            <strong>Deaths:</strong>
+            {{ covidStatistics()?.deaths | number }}
+         </p>
+         <p>
+            <strong>Updated:</strong>
+            {{ covidStatistics()?.updated | date : "short" }}
+         </p>
+      </div>
+      } @if(vaccinationData()) {
+      <app-country
+         [countryData]="vaccinationData()!.country_data"
+      ></app-country>
+      }
+   </div>
+</div>

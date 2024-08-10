@@ -1,0 +1,68 @@
+@if(isLoading()) {
+<div>Loading data...</div>
+} @else {
+<ul class="nav nav-tabs" id="chartTabs" role="tablist">
+   <li class="nav-item" role="presentation">
+      <a
+         class="nav-link"
+         [ngClass]="{ active: activeTab === 'confirmed-recovered' }"
+         (click)="setActiveTab('confirmed-recovered')"
+         >Confirmed vs Recovered</a
+      >
+   </li>
+   <li class="nav-item" role="presentation">
+      <a
+         class="nav-link"
+         [ngClass]="{ active: activeTab === 'vaccination' }"
+         (click)="setActiveTab('vaccination')"
+         >Vaccination Data</a
+      >
+   </li>
+   <li class="nav-item" role="presentation">
+      <a
+         class="nav-link"
+         [ngClass]="{ active: activeTab === 'computed' }"
+         (click)="setActiveTab('computed')"
+         >Vaccination & Infection Rates</a
+      >
+   </li>
+</ul>
+<div class="tab-content" id="chartTabsContent">
+   <div
+      class="tab-pane fade"
+      [ngClass]="{ 'show active': activeTab === 'confirmed-recovered' }"
+   >
+      <div>
+         <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="coConfirmedAndRecovered"
+            style="width: 100%; height: 400px; display: block"
+         ></highcharts-chart>
+      </div>
+   </div>
+   <div
+      class="tab-pane fade"
+      [ngClass]="{ 'show active': activeTab === 'vaccination' }"
+   >
+      <div>
+         <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="coVaccinationData"
+            style="width: 100%; height: 400px; display: block"
+         ></highcharts-chart>
+      </div>
+   </div>
+   <div
+      class="tab-pane fade"
+      [ngClass]="{ 'show active': activeTab === 'computed' }"
+   >
+      <div>
+         <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="coRates"
+            style="width: 100%; height: 400px; display: block"
+         ></highcharts-chart>
+      </div>
+   </div>
+</div>
+}

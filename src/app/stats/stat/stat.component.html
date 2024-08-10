@@ -1,1 +1,56 @@
-<p>stat works!</p>
+<table ngbTable class="table table-striped">
+   <thead>
+      <tr>
+         <th scope="col">#</th>
+         <th scope="col" sortable="country" (sort)="onSort($event)">Country</th>
+         <th scope="col" sortable="population" (sort)="onSort($event)">
+            Population
+         </th>
+         <th scope="col" sortable="confirmed" (sort)="onSort($event)">
+            Confirmed
+         </th>
+         <th scope="col" sortable="recovered" (sort)="onSort($event)">
+            Recovered
+         </th>
+         <th scope="col" sortable="deaths" (sort)="onSort($event)">Deaths</th>
+         <th scope="col" sortable="administered" (sort)="onSort($event)">
+            Administered
+         </th>
+         <th scope="col" sortable="people_vaccinated" (sort)="onSort($event)">
+            People Vaccinated
+         </th>
+         <th scope="col" sortable="vaccinationRate" (sort)="onSort($event)">
+            Vaccination Rate (%)
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      @for(stat of statData; track stat.country) {
+      <tr>
+         <td scope="row">{{ $index + 1 }}</td>
+         <td>
+            <img
+               [src]="
+                  'https://upload.wikimedia.org/wikipedia/commons/' + stat.flag
+               "
+               [alt]="'The flag of ' + stat.country"
+               class="me-2"
+               style="width: 20px"
+            />
+            {{ stat.country }}
+         </td>
+         <td>{{ stat.population | number }}</td>
+         <td>{{ stat.confirmed | number }}</td>
+         <td>{{ stat.recovered | number }}</td>
+         <td>{{ stat.deaths | number }}</td>
+         <td>{{ stat.administered | number }}</td>
+         <td>{{ stat.people_vaccinated | number }}</td>
+         <td>{{ stat.vaccinationRate | number }}</td>
+      </tr>
+      }@empty {
+      <tr>
+         <td colspan="9" style="text-align: center">No countries found</td>
+      </tr>
+      }
+   </tbody>
+</table>

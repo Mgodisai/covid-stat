@@ -140,12 +140,16 @@ export class ChartComponent {
             {
                name: 'Vaccination Rate (%)',
                type: 'line',
-               data: this.statData.map((data) => data.vaccinationRate),
+               data: this.statData.map(
+                  (data) => Math.round(data.vaccinationRate * 10000) / 100
+               ),
             },
             {
                name: 'Infection Rate (%)',
                type: 'line',
-               data: this.statData.map((data) => data.infectionRate),
+               data: this.statData.map(
+                  (data) => Math.round(data.infectionRate * 10000) / 100
+               ),
             },
          ],
       };

@@ -12,14 +12,10 @@ export class StatData {
    ) {}
 
    get vaccinationRate(): number {
-      return this.population > 0
-         ? Math.round((this.people_vaccinated / this.population) * 10000) / 100
-         : 0;
+      return this.population > 0 ? this.people_vaccinated / this.population : 0;
    }
 
    get infectionRate(): number {
-      return this.population > 0
-         ? Math.round((this.confirmed / this.population) * 10000) / 100
-         : 0;
+      return this.population > 0 ? this.confirmed / this.population : 0;
    }
 }

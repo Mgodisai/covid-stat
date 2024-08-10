@@ -1,11 +1,14 @@
 import {
    Component,
+   computed,
    DestroyRef,
    Directive,
    EventEmitter,
    Input,
    Output,
    QueryList,
+   Signal,
+   signal,
    ViewChildren,
 } from '@angular/core';
 
@@ -15,6 +18,8 @@ import { AVAILABLE_COUNTRIES } from '../countries.constants';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChartComponent } from '../chart/chart.component';
+import { Country } from '../models/country.model';
+import { CountryComponent } from '../single-country-stat/country/country.component';
 
 export type SortColumn = keyof StatData | '';
 export type SortDirection = 'asc' | 'desc' | '';
@@ -56,7 +61,7 @@ export class NgbdSortableHeader {
 @Component({
    selector: 'app-stat',
    standalone: true,
-   imports: [CommonModule, DecimalPipe, NgbdSortableHeader],
+   imports: [CommonModule, DecimalPipe, NgbdSortableHeader, CountryComponent],
    templateUrl: './stat.component.html',
    styleUrl: './stat.component.scss',
 })
@@ -65,6 +70,8 @@ export class StatComponent {
    statData: StatData[] = [];
    @ViewChildren(NgbdSortableHeader)
    headers: QueryList<NgbdSortableHeader> = new QueryList<NgbdSortableHeader>();
+   selectedCountryName = signal<string | undefined>(undefined);
+   selectedCountryData = signal<Country | undefined>(undefined);
 
    constructor(
       private readonly statService: StatService,
@@ -75,6 +82,25 @@ export class StatComponent {
 
    ngOnInit() {
       this.statData = this.data;
+   }
+
+   onRowClick(stat: StatData): void {
+      if (stat.country === this.selectedCountryName()) {
+         this.selectedCountryName.set(undefined);
+         this.selectedCountryData.set(undefined);
+      } else {
+         this.selectedCountryName.set(stat.country);
+         if (this.selectedCountryName()) {
+            this.statService
+               .getCovidStatistics(this.selectedCountryName() ?? '')
+               .subscribe({
+                  next: (covidData) =>
+                     this.selectedCountryData.set(covidData.country_data),
+                  error: (err) =>
+                     console.error('Error loading country data', err),
+               });
+         }
+      }
    }
 
    onSort({ column, direction }: SortEvent) {

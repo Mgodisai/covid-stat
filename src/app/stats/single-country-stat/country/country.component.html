@@ -24,15 +24,21 @@
       </h2>
       <div ngbAccordionCollapse>
          <div ngbAccordionBody>
-            <p><strong>Population:</strong> {{ countryData?.population }}</p>
-            <p><strong>Area (sq km):</strong> {{ countryData?.sq_km_area }}</p>
             <p>
-               <strong>Life Expectancy:</strong>
+               <strong>Population:</strong>
+               {{ countryData?.population | number }}
+            </p>
+            <p>
+               <strong>Area (sq km):</strong>
+               {{ countryData?.sq_km_area | number }}
+            </p>
+            <p>
+               <strong>Life Expectancy (year):</strong>
                {{ countryData?.life_expectancy }}
             </p>
             <p>
                <strong>Elevation (meters):</strong>
-               {{ countryData?.elevation_in_meters }}
+               {{ countryData?.elevation_in_meters | number }}
             </p>
          </div>
       </div>

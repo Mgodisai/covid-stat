@@ -2,11 +2,17 @@ import { Component, Input, signal } from '@angular/core';
 import { Country } from '../../models/country.model';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { GoogleMapsModule, MapAdvancedMarker } from '@angular/google-maps';
+import { CommonModule } from '@angular/common';
 
 @Component({
    selector: 'app-country',
    standalone: true,
-   imports: [NgbAccordionModule, GoogleMapsModule, MapAdvancedMarker],
+   imports: [
+      NgbAccordionModule,
+      GoogleMapsModule,
+      MapAdvancedMarker,
+      CommonModule,
+   ],
    templateUrl: './country.component.html',
    styleUrl: './country.component.scss',
 })
@@ -21,6 +27,10 @@ export class CountryComponent {
    };
 
    ngOnInit(): void {
+      this.updateLatLng();
+   }
+
+   ngOnChanges(): void {
       this.updateLatLng();
    }
 

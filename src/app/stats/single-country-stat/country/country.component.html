@@ -45,7 +45,14 @@
          <div ngbAccordionBody>
             <p><strong>Latitude:</strong> {{ countryData?.lat }}</p>
             <p><strong>Longitude:</strong> {{ countryData?.long }}</p>
-            <div id="map" style="height: 300px"></div>
+            <div id="map" style="height: 500px">
+               <google-map height="100%" width="100%" [options]="options">
+                  <map-advanced-marker
+                     #markerElem="mapAdvancedMarker"
+                     [position]="{ lat: latlng().lat, lng: latlng().lng }"
+                  />
+               </google-map>
+            </div>
          </div>
       </div>
    </div>

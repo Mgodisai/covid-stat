@@ -1,6 +1,5 @@
-import { Component, DestroyRef, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
-   FormBuilder,
    FormControl,
    FormGroup,
    FormsModule,
@@ -29,10 +28,7 @@ export class LoginComponent {
    isLoading = signal<boolean>(false);
    errorMessage = signal<string | null>(null);
 
-   constructor(
-      private readonly authService: AuthService,
-      private readonly formBuilder: FormBuilder
-   ) {}
+   constructor(private readonly authService: AuthService) {}
 
    login() {
       this.errorMessage.set(null);

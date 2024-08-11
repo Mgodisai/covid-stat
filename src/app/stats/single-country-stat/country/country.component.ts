@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { Country } from '../../models/country.model';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { GoogleMapsModule, MapAdvancedMarker } from '@angular/google-maps';
@@ -17,34 +17,21 @@ import { CommonModule } from '@angular/common';
    styleUrl: './country.component.scss',
 })
 export class CountryComponent {
-   @Input() countryData?: Country;
-   latlng = signal({ lat: 0, lng: 0 });
+   countryData = input<Country | undefined>(undefined);
+   latlng = computed(() => {
+      return this.countryData()
+         ? {
+              lat: parseFloat(this.countryData()!.lat),
+              lng: parseFloat(this.countryData()!.long),
+           }
+         : { lat: 0, lng: 0 };
+   });
 
-   options: google.maps.MapOptions = {
-      mapId: 'MAP_ID',
-      center: this.latlng(),
-      zoom: 6,
-   };
-
-   ngOnInit(): void {
-      this.updateLatLng();
-   }
-
-   ngOnChanges(): void {
-      this.updateLatLng();
-   }
-
-   updateLatLng(): void {
-      if (this.countryData) {
-         this.latlng.set({
-            lat: parseFloat(this.countryData.lat),
-            lng: parseFloat(this.countryData.long),
-         });
-
-         this.options = {
-            ...this.options,
-            center: this.latlng(),
-         };
-      }
-   }
+   options = computed<google.maps.MapOptions>(() => {
+      return {
+         mapId: 'MAP_ID',
+         center: this.latlng(),
+         zoom: 6,
+      };
+   });
 }

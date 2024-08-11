@@ -22,12 +22,12 @@ import { PasswordComplexityDirective } from '../../shared/validators/password-co
    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationComponent {
-   public readonly email = signal('');
-   public readonly username = signal('');
-   public readonly password = signal('');
-   public readonly confirmPassword = signal('');
+   public readonly email = signal<string>('');
+   public readonly username = signal<string>('');
+   public readonly password = signal<string>('');
+   public readonly confirmPassword = signal<string>('');
 
-   errorMessage = signal<string | null>(null);
+   public readonly errorMessage = signal<string | undefined>(undefined);
 
    constructor(
       private readonly regService: RegService,

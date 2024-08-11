@@ -6,14 +6,14 @@
       </h2>
       <div ngbAccordionCollapse>
          <div ngbAccordionBody>
-            <p><strong>Country:</strong> {{ countryData?.country }}</p>
-            <p><strong>Continent:</strong> {{ countryData?.continent }}</p>
+            <p><strong>Country:</strong> {{ countryData()?.country }}</p>
+            <p><strong>Continent:</strong> {{ countryData()?.continent }}</p>
             <p>
-               <strong>Abbreviation:</strong> {{ countryData?.abbreviation }}
+               <strong>Abbreviation:</strong> {{ countryData()?.abbreviation }}
             </p>
-            <p><strong>ISO Code:</strong> {{ countryData?.iso }}</p>
+            <p><strong>ISO Code:</strong> {{ countryData()?.iso }}</p>
             <p>
-               <strong>Capital City:</strong> {{ countryData?.capital_city }}
+               <strong>Capital City:</strong> {{ countryData()?.capital_city }}
             </p>
          </div>
       </div>
@@ -26,19 +26,19 @@
          <div ngbAccordionBody>
             <p>
                <strong>Population:</strong>
-               {{ countryData?.population | number }}
+               {{ countryData()?.population | number }}
             </p>
             <p>
                <strong>Area (sq km):</strong>
-               {{ countryData?.sq_km_area | number }}
+               {{ countryData()?.sq_km_area | number }}
             </p>
             <p>
                <strong>Life Expectancy (year):</strong>
-               {{ countryData?.life_expectancy }}
+               {{ countryData()?.life_expectancy }}
             </p>
             <p>
                <strong>Elevation (meters):</strong>
-               {{ countryData?.elevation_in_meters | number }}
+               {{ countryData()?.elevation_in_meters | number }}
             </p>
          </div>
       </div>
@@ -49,10 +49,10 @@
       </h2>
       <div ngbAccordionCollapse>
          <div ngbAccordionBody>
-            <p><strong>Latitude:</strong> {{ countryData?.lat }}</p>
-            <p><strong>Longitude:</strong> {{ countryData?.long }}</p>
+            <p><strong>Latitude:</strong> {{ countryData()?.lat }}</p>
+            <p><strong>Longitude:</strong> {{ countryData()?.long }}</p>
             <div id="map" style="height: 500px">
-               <google-map height="100%" width="100%" [options]="options">
+               <google-map height="100%" width="100%" [options]="options()">
                   <map-advanced-marker
                      #markerElem="mapAdvancedMarker"
                      [position]="{ lat: latlng().lat, lng: latlng().lng }"

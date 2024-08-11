@@ -57,6 +57,6 @@
 
 @if(selectedCountryName()) {
 <div class="country-data">
-   <app-country [countryData]="selectedCountryData()"></app-country>
+   <app-country [countryData]="selectedCountryData()!"></app-country>
 </div>
 }

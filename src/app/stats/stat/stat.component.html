@@ -30,9 +30,7 @@
          <td scope="row">{{ $index + 1 }}</td>
          <td>
             <img
-               [src]="
-                  'https://upload.wikimedia.org/wikipedia/commons/' + stat.flag
-               "
+               [src]="FLAG_BASEURL + stat.flag"
                [alt]="'The flag of ' + stat.country"
                class="me-2"
                style="width: 20px"

@@ -20,6 +20,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChartComponent } from '../chart/chart.component';
 import { Country } from '../models/country.model';
 import { CountryComponent } from '../single-country-stat/country/country.component';
+import { environment } from '../../../environments/environment.development';
 
 export type SortColumn = keyof StatData | '';
 export type SortDirection = 'asc' | 'desc' | '';
@@ -66,6 +67,7 @@ export class NgbdSortableHeader {
    styleUrl: './stat.component.scss',
 })
 export class StatComponent {
+   FLAG_BASEURL = `${environment.flagPicturesBaseUrl}`;
    data: StatData[] = [];
    statData: StatData[] = [];
    @ViewChildren(NgbdSortableHeader)
